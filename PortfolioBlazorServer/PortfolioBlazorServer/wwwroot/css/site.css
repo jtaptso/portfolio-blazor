@@ -1,0 +1,243 @@
+
+
+/* ===== Fonts & Base ===== */
+body {
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    color: #343a40;
+    background-color: #f8f9fa;
+    padding-top: 70px; /* adjust to navbar height */
+}
+
+/* ===== Hero Section ===== */
+.hero {
+    background: linear-gradient(135deg, #0d6efd 0%, #6c757d 100%);
+    color: #fff;
+    padding: 100px 0;
+    text-align: center;
+}
+
+    .hero h1 {
+        font-size: 3rem;
+        font-weight: 700;
+    }
+
+    .hero p {
+        font-size: 1.2rem;
+        max-width: 700px;
+        margin: 1rem auto;
+    }
+
+/* ===== Buttons ===== */
+.btn-primary, .btn-secondary {
+    border-radius: 50px;
+    transition: all 0.3s ease;
+}
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        transform: translateY(-2px);
+    }
+
+    .btn-secondary:hover {
+        background-color: #495057;
+        transform: translateY(-2px);
+    }
+
+/* ===== Section Headers ===== */
+section h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    border-bottom: 3px solid #0d6efd;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+/* ===== Cards ===== */
+.card {
+    border: none;
+    border-radius: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #fff;
+}
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+.card-body h5 {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.card-body p {
+    font-size: 0.95rem;
+    color: #495057;
+}
+
+.card-body .btn {
+    margin-top: 10px;
+}
+
+/* ===== Progress Bars ===== */
+.progress {
+    height: 8px;
+    border-radius: 4px;
+    background-color: #e9ecef;
+}
+
+.progress-bar {
+    background-color: #0d6efd;
+    transition: width 1s ease-in-out;
+}
+
+/* ===== Links ===== */
+a, .btn-link {
+    color: #0071c1;
+    text-decoration: none;
+}
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+/* ===== Footer ===== */
+footer {
+    background-color: #343a40;
+    color: #fff;
+    padding: 40px 0;
+    text-align: center;
+}
+
+    footer a {
+        color: #fff;
+        margin: 0 10px;
+        font-size: 1.2rem;
+    }
+
+        footer a:hover {
+            color: #0d6efd;
+        }
+
+/* ===== Navbar Styling ===== */
+.navbar {
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.navbar-nav .nav-item {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+.navbar-nav .nav-link {
+    padding: 0.5rem 1rem;
+    color: #0d6efd;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+    .navbar-nav .nav-link.active {
+        font-weight: 600;
+        color: #0a58ca !important;
+    }
+
+    .navbar-nav .nav-link:hover {
+        color: #0056b3;
+    }
+
+/* Icon spacing */
+.nav-icon {
+    font-size: 1.1rem;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+}
+
+/* Mobile adjustments */
+@media (max-width: 991px) {
+    .navbar-nav {
+        text-align: center;
+    }
+
+    .navbar-nav .nav-link {
+        padding: 0.75rem 0;
+    }
+
+    .navbar-collapse {
+        background-color: #fff;
+        padding: 1rem;
+    }
+}
+
+/* ===== Grid Spacing ===== */
+.row.g-3 > [class*='col-'] {
+    margin-bottom: 1.5rem;
+}
+
+/* ===== Tabs ===== */
+.nav-tabs .nav-link.active {
+    background-color: #0d6efd;
+    color: #fff;
+    border-radius: 50px;
+}
+
+.nav-tabs .nav-link {
+    border: none;
+    margin-right: 5px;
+    color: #0d6efd;
+}
+
+    .nav-tabs .nav-link:hover {
+        color: #0056b3;
+    }
+
+/* ===== Accessibility & Validation ===== */
+h1:focus {
+    outline: none;
+}
+
+.content {
+    padding-top: 1.1rem;
+}
+
+.valid.modified:not([type=checkbox]) {
+    outline: 1px solid #26b050;
+}
+
+.invalid {
+    outline: 1px solid red;
+}
+
+.validation-message {
+    color: red;
+}
+
+/* ===== Blazor Error UI ===== */
+#blazor-error-ui {
+    background: lightyellow;
+    bottom: 0;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    display: none;
+    left: 0;
+    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+    #blazor-error-ui .dismiss {
+        cursor: pointer;
+        position: absolute;
+        right: 0.75rem;
+        top: 0.5rem;
+    }
+
+.blazor-error-boundary {
+    background: url(data:image/svg+xml;base64,...) no-repeat 1rem/1.8rem, #b32121;
+    padding: 1rem 1rem 1rem 3.7rem;
+    color: white;
+}
+
+    .blazor-error-boundary::after {
+        content: "An error has occurred.";
+    }

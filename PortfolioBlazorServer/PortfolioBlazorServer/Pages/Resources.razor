@@ -1,0 +1,34 @@
+﻿@page "/resources"
+@inject IResourceService ResourceService
+
+<h2>All Resources</h2>
+<p>Here’s a complete list of resources I use and recommend. These include tools, guides, and references that support my learning journey.</p>
+
+@if (resources == null)
+{
+    <p>Loading resources...</p>
+}
+else if (!resources.Any())
+{
+    <p>No resources available yet.</p>
+}
+else
+{
+    <div class="row g-3 mt-3">
+        @foreach (var resource in resources)
+        {
+            <div class="col-md-6 col-lg-4">
+                <ResourceCard Resource="resource" />
+            </div>
+        }
+    </div>
+}
+
+@code {
+    private List<Resource>? resources;
+
+    protected override async Task OnInitializedAsync()
+    {
+        resources = await ResourceService.GetResourcesAsync();
+    }
+}

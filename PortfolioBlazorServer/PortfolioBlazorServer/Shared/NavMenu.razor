@@ -1,0 +1,43 @@
+﻿<div class="top-row navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="">PortfolioBlazorServer</a>
+        <button class="navbar-toggler" type="button" @onclick="ToggleNavMenu" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</div>
+
+<div class="@NavMenuCssClass">
+    <nav class="flex-column navbar-nav ms-auto">
+        <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+            <i class="bi bi-house-door nav-icon me-2"></i> Home
+        </NavLink>
+        <NavLink class="nav-link" href="about">
+            <i class="bi bi-person nav-icon me-2"></i> About
+        </NavLink>
+        <NavLink class="nav-link" href="learnings">
+            <i class="bi bi-journal-code nav-icon me-2"></i> Learnings
+        </NavLink>
+        <NavLink class="nav-link" href="projects">
+            <i class="bi bi-kanban nav-icon me-2"></i> Projects
+        </NavLink>
+        <NavLink class="nav-link" href="resources">
+            <i class="bi bi-bookmarks nav-icon me-2"></i> Resources
+        </NavLink>
+        <NavLink class="nav-link" href="contact">
+            <i class="bi bi-envelope nav-icon me-2"></i> Contact
+        </NavLink>
+    </nav>
+</div>
+
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse navbar-collapse" : "collapse navbar-collapse show";
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

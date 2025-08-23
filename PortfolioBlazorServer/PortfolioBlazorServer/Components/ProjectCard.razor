@@ -1,0 +1,19 @@
+﻿<div class="card h-100 shadow-sm">
+    <div class="card-body">
+        <h5 class="card-title">@Project.Name</h5>
+        <p class="card-text">@Project.Description</p>
+        <p><strong>Tech:</strong> @Project.TechStack</p>
+        @if (!string.IsNullOrEmpty(Project.DemoLink))
+        {
+            <a href="@Project.DemoLink" target="_blank" class="btn btn-primary btn-sm me-2">Demo</a>
+        }
+        @if (!string.IsNullOrEmpty(Project.GithubLink))
+        {
+            <a href="@Project.GithubLink" target="_blank" class="btn btn-secondary btn-sm">GitHub</a>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter] public Project Project { get; set; } = null!;
+}

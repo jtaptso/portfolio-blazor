@@ -1,0 +1,134 @@
+﻿@page "/"
+@inject IProjectService ProjectService
+@inject ILearningService LearningService
+@inject IResourceService ResourceService
+
+<section class="hero">
+    <h1>Learning & Building in Public</h1>
+    <p>Documenting my journey from curious learner to skilled developer. Exploring .NET, Data Analysis, ERP Systems, and Business Intelligence while building real projects.</p>
+    <div class="mt-3">
+        <a href="#projects" class="btn btn-primary me-2">View My Work</a>
+        <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+    </div>
+</section>
+
+<section id="skills" class="py-5 bg-light">
+    <div class="container">
+        <h2>Current Learning Focus</h2>
+        <div class="row g-3 mt-3">
+            <!-- Example Skill Card -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 shadow-sm p-3">
+                    <h5>.NET Development</h5>
+                    <p>ASP.NET Core, C#, Entity Framework</p>
+                    <div class="progress mb-2"><div class="progress-bar" style="width:75%;"></div></div>
+                    <small>Currently learning: Dependency Injection, Middleware</small>
+                </div>
+            </div>
+            <!-- Add other skill cards similarly -->
+        </div>
+    </div>
+</section>
+
+<section id="projects" class="py-5">
+    <div class="container">
+        <h2>Recent Projects</h2>
+        @if (projects == null)
+        {
+            <p>Loading...</p>
+        }
+        else if (!projects.Any())
+        {
+
+            <p>No projects yet.</p>
+        }
+        else
+        {
+            <div class="row g-3 mt-3">
+                @foreach (var project in projects.Take(3))
+                {
+                    <div class="col-md-6 col-lg-4">
+                        <ProjectCard Project="project" />
+                    </div>
+                }
+            </div>
+        }
+        <a href="/projects" class="btn btn-primary mt-3">View All Projects</a>
+    </div>
+</section>
+
+<section id="blog" class="py-5 bg-light">
+    <div class="container">
+        <h2>Learning Journal</h2>
+        @if (learnings == null)
+        {
+            <p>Loading...</p>
+        }
+        else if (!learnings.Any())
+        {
+
+            <p>No learnings yet.</p>
+        }
+        else
+        {
+            <div class="row g-3 mt-3">
+                @foreach (var learning in learnings.Take(3))
+                {
+                    <div class="col-md-12 col-lg-4">
+                        <LearningCard Learning="learning" />
+                    </div>
+                }
+            </div>
+        }
+        <a href="/learnings" class="btn btn-primary mt-3">View All Learnings</a>
+    </div>
+</section>
+
+<section id="resources" class="py-5">
+    <div class="container">
+        <h2>Featured Resources</h2>
+        @if (resources == null)
+        {
+            <p>Loading...</p>
+        }
+        else if (!resources.Any())
+        {
+
+            <p>No resources yet.</p>
+        }
+        else
+        {
+            <div class="row g-3 mt-3">
+                @foreach (var resource in resources.Take(3))
+                {
+                    <div class="col-md-6 col-lg-4">
+                        <ResourceCard Resource="resource" />
+                    </div>
+                }
+            </div>
+        }
+        <a href="/resources" class="btn btn-primary mt-3">View All Resources</a>
+    </div>
+</section>
+
+<footer>
+    <div>
+        <a href="#" class="me-2"><i class="bi bi-github"></i></a>
+        <a href="#" class="me-2"><i class="bi bi-linkedin"></i></a>
+        <a href="#" class="me-2"><i class="bi bi-twitter"></i></a>
+    </div>
+    <p class="mt-3">&copy; 2025 YourName.dev - Learning and Building in Public</p>
+</footer>
+
+@code {
+    private List<Project>? projects;
+    private List<Learning>? learnings;
+    private List<Resource>? resources;
+
+    protected override async Task OnInitializedAsync()
+    {
+        projects = await ProjectService.GetProjectsAsync();
+        learnings = await LearningService.GetLearningsAsync();
+        resources = await ResourceService.GetResourcesAsync();
+    }
+}

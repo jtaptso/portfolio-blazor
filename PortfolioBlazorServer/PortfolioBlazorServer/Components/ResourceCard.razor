@@ -1,0 +1,19 @@
+﻿<div class="card h-100 shadow-sm">
+    <div class="card-body">
+        <h5 class="card-title">
+            <a href="@Resource.Url" target="_blank">@Resource.Name</a>
+        </h5>
+        @if (!string.IsNullOrEmpty(Resource.Description))
+        {
+            <p class="card-text">@Resource.Description</p>
+        }
+        @if (Resource.Category != null)
+        {
+            <span class="badge bg-secondary">@Resource.Category.Name</span>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter] public Resource Resource { get; set; } = null!;
+}

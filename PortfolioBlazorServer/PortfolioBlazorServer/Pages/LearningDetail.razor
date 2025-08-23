@@ -1,0 +1,42 @@
+﻿@page "/learnings/{Slug}"
+@inject ILearningService LearningService
+@inject ICategoryService CategoryService
+
+<h1>@learning?.Title</h1>
+
+@if (learning == null)
+{
+    <p>Learning not found.</p>
+}
+else
+{
+    <p class="text-muted">
+        Category: @category?.Name | Posted on: @learning.DateCreated.ToString("MMM dd, yyyy")
+    </p>
+
+    <div class="card shadow-sm mb-3">
+        <div class="card-body">
+            @((MarkupString)learning.Content)
+        </div>
+    </div>
+
+    <a href="/learnings" class="btn btn-secondary">Back to Learnings</a>
+}
+
+@code {
+    [Parameter] public string Slug { get; set; } = string.Empty;
+
+    private Learning? learning;
+    private Category? category;
+
+    protected override async Task OnInitializedAsync()
+    {
+        learning = await LearningService.GetLearningBySlugAsync(Slug);
+
+        if (learning != null)
+        {
+            var categories = await CategoryService.GetCategoriesAsync();
+            category = categories.FirstOrDefault(c => c.Id == learning.CategoryId);
+        }
+    }
+}

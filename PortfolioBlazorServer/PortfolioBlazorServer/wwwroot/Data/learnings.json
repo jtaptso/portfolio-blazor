@@ -1,0 +1,20 @@
+[
+  {
+    "Id": 1,
+    "Title": "Getting Started with C#",
+    "Slug": "getting-started-with-csharp",
+    "Summary": "Basics of C# programming, types, and syntax.",
+    "Content": "C# is a modern, object-oriented programming language...",
+    "DateCreated": "2025-08-23T00:00:00Z",
+    "CategoryId": 1
+  },
+  {
+    "Id": 2,
+    "Title": "Introduction to SAP Business One",
+    "Slug": "intro-sap-business-one",
+    "Summary": "Overview of SAP B1 and basic navigation.",
+    "Content": "SAP Business One is an ERP solution designed for SMEs...",
+    "DateCreated": "2025-08-24T00:00:00Z",
+    "CategoryId": 4
+  }
+]

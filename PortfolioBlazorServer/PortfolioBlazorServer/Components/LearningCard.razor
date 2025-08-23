@@ -1,0 +1,17 @@
+﻿@inject NavigationManager NavManager
+
+<div class="card h-100 shadow-sm">
+    <div class="card-body">
+        <h5 class="card-title">@Learning.Title</h5>
+        @if (!string.IsNullOrEmpty(Learning.Summary))
+        {
+            <p class="card-text">@Learning.Summary</p>
+        }
+        <p class="text-muted">Category: @Learning.Category?.Name</p>
+        <a href="@($"/learnings/{Learning.Slug}")" class="btn btn-primary btn-sm">Read More</a>
+    </div>
+</div>
+
+@code {
+    [Parameter] public Learning Learning { get; set; } = null!;
+}

@@ -1,0 +1,24 @@
+﻿@page "/projects"
+@inject IProjectService ProjectService
+
+<h2>All Projects</h2>
+@if (projects == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <div class="row g-3 mt-3">
+        @foreach (var project in projects)
+        {
+            <div class="col-md-6 col-lg-4">
+                <ProjectCard Project="project" />
+            </div>
+        }
+    </div>
+}
+
+@code {
+    private List<Project>? projects;
+    protected override async Task OnInitializedAsync() => projects = await ProjectService.GetProjectsAsync();
+}

@@ -1,0 +1,42 @@
+[
+  {
+    "Id": 1,
+    "Name": "Personal Portfolio Website",
+    "Slug": "personal-portfolio-website",
+    "Description": "A Blazor Server website documenting my learnings and projects, serving as both a portfolio and a learning journal.",
+    "TechStack": ".NET 9, Blazor Server, Bootstrap 5, EF Core",
+    "DemoLink": "#",
+    "GithubLink": "https://github.com/username/portfolio",
+    "DateCreated": "2025-08-20T00:00:00Z"
+  },
+  {
+    "Id": 2,
+    "Name": "CXML API Integration",
+    "Slug": "cxml-api-integration",
+    "Description": "An API to manage CXML transactions and integrate with SAP Business One using the DI API.",
+    "TechStack": ".NET 9, SAP Business One DI API, EF Core, SQL Server",
+    "DemoLink": "#",
+    "GithubLink": "https://github.com/username/cxml-api",
+    "DateCreated": "2025-08-22T00:00:00Z"
+  },
+  {
+    "Id": 3,
+    "Name": "Data Analytics Dashboard",
+    "Slug": "data-analytics-dashboard",
+    "Description": "A dashboard that visualizes business data using charts and tables, allowing quick insights and reporting.",
+    "TechStack": ".NET 9, Blazor Server, Chart.js, SQL Server",
+    "DemoLink": "#",
+    "GithubLink": "https://github.com/username/data-dashboard",
+    "DateCreated": "2025-08-18T00:00:00Z"
+  },
+  {
+    "Id": 4,
+    "Name": "ERP Mock System",
+    "Slug": "erp-mock-system",
+    "Description": "A simplified ERP system prototype to learn about workflows, inventory management, and basic accounting features.",
+    "TechStack": ".NET 9, Blazor Server, EF Core, SQLite",
+    "DemoLink": "#",
+    "GithubLink": "https://github.com/username/erp-mock",
+    "DateCreated": "2025-08-15T00:00:00Z"
+  }
+]

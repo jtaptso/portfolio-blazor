@@ -1,0 +1,18 @@
+﻿<ul class="nav nav-tabs">
+    @foreach (var cat in Categories)
+    {
+        <li class="nav-item">
+            <a class="nav-link @(cat.Id == SelectedCategoryId ? "active" : "")"
+               href="#"
+               @onclick="() => OnCategorySelected.InvokeAsync(cat.Id)">
+                @cat.Name
+            </a>
+        </li>
+    }
+</ul>
+
+@code {
+    [Parameter] public List<Category> Categories { get; set; } = new();
+    [Parameter] public int SelectedCategoryId { get; set; }
+    [Parameter] public EventCallback<int> OnCategorySelected { get; set; }
+}
