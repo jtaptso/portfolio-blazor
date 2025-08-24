@@ -10,5 +10,6 @@
 
         public List<Learning> Learnings { get; set; } = new();
         public List<Resource> Resources { get; set; } = new();
+
     }
 }

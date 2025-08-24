@@ -19,5 +19,7 @@
         public DateTime DateCreated { get; set; } = DateTime.UtcNow;
 
         public List<Learning>? RelatedLearnings { get; set; } // Optional connection
+
+        //public List<string>? Categories { get; set; } = new();
     }
 }

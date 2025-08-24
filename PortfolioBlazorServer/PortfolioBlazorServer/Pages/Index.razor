@@ -3,89 +3,88 @@
 @inject ILearningService LearningService
 @inject IResourceService ResourceService
 
-<section class="hero">
-    <h1>Learning & Building in Public</h1>
-    <p>Documenting my journey from curious learner to skilled developer. Exploring .NET, Data Analysis, ERP Systems, and Business Intelligence while building real projects.</p>
-    <div class="mt-3">
-        <a href="#projects" class="btn btn-primary me-2">View My Work</a>
-        <a href="#contact" class="btn btn-secondary">Get In Touch</a>
-    </div>
-</section>
+@inject IJSRuntime JS
 
-<section id="skills" class="py-5 bg-light">
-    <div class="container">
-        <h2>Current Learning Focus</h2>
-        <div class="row g-3 mt-3">
-            <!-- Example Skill Card -->
-            <div class="col-md-6 col-lg-3">
-                <div class="card h-100 shadow-sm p-3">
-                    <h5>.NET Development</h5>
-                    <p>ASP.NET Core, C#, Entity Framework</p>
-                    <div class="progress mb-2"><div class="progress-bar" style="width:75%;"></div></div>
-                    <small>Currently learning: Dependency Injection, Middleware</small>
-                </div>
+<PageTitle>Home - Learning & Building in Public</PageTitle>
+
+
+<!-- Hero Section -->
+<section id="hero" class="hero">
+    <div class="hero-content">
+        <h1 class="hero-title">Welcome to My Learning Journey</h1>
+        <p class="hero-subtitle">Join me as I explore new technologies, document my projects, and share my learning
+            experiences.</p>
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" data-progress="50"></div>
             </div>
-            <!-- Add other skill cards similarly -->
+            <small class="hero-learning">Currently learning: User Story Writing, Stakeholder Management</small>
+        </div>
+        <div class="hero-cta">
+            <a href="#projects" class="btn btn-primary">View Projects</a>
+            <a href="#contact" class="btn btn-secondary">Get in Touch</a>
         </div>
     </div>
 </section>
 
-<section id="projects" class="py-5">
-    <div class="container">
-        <h2>Recent Projects</h2>
-        @if (projects == null)
-        {
+<!-- Projects Section -->
+<section id="projects" class="projects-section">
+    <div class="projects-header-centered">
+        <h2 class="projects-title">Recent Projects</h2>
+        <p class="projects-description">Each project is a learning experiment. I document the challenges, solutions, and
+            lessons learned.</p>
+    </div>
+    @if (projects == null)
+    {
+        <div class="projects-loading">
             <p>Loading...</p>
-        }
-        else if (!projects.Any())
-        {
-
+        </div>
+    }
+    else if (!projects.Any())
+    {
+        <div class="projects-empty">
             <p>No projects yet.</p>
-        }
-        else
-        {
-            <div class="row g-3 mt-3">
-                @foreach (var project in projects.Take(3))
-                {
-                    <div class="col-md-6 col-lg-4">
-                        <ProjectCard Project="project" />
-                    </div>
-                }
-            </div>
-        }
+        </div>
+    }
+    else
+    {
+        <div class="projects-grid">
+            @foreach (var project in projects)
+            {
+                <div class="project-card-wrapper">
+                    <ProjectCard Project="project" />
+                </div>
+            }
+        </div>
+    }
+    <div class="projects-footer">
         <a href="/projects" class="btn btn-primary mt-3">View All Projects</a>
     </div>
 </section>
 
-<section id="blog" class="py-5 bg-light">
-    <div class="container">
+<!-- Blog Section -->
+<section id="learning-section">
+    <div class="section-header">
         <h2>Learning Journal</h2>
-        @if (learnings == null)
+        <p>I write about what I learn, challenges I face, and solutions I discover. Learning in public helps solidify my
+            understanding.</p>
+    </div>
+    <div class="learning-grid">
+        @foreach (var learning in learnings!)
         {
-            <p>Loading...</p>
-        }
-        else if (!learnings.Any())
-        {
-
-            <p>No learnings yet.</p>
-        }
-        else
-        {
-            <div class="row g-3 mt-3">
-                @foreach (var learning in learnings.Take(3))
-                {
-                    <div class="col-md-12 col-lg-4">
-                        <LearningCard Learning="learning" />
-                    </div>
-                }
+            <div class="project-card-wrapper">
+                <LearningCard Learning="learning" />
             </div>
         }
+    </div>
+    <div class="projects-footer">
         <a href="/learnings" class="btn btn-primary mt-3">View All Learnings</a>
     </div>
 </section>
 
-<section id="resources" class="py-5">
-    <div class="container">
+<!-- Resources Section -->
+<section id="resources">
+    <div class="section-header">
         <h2>Featured Resources</h2>
         @if (resources == null)
         {
@@ -111,14 +110,41 @@
     </div>
 </section>
 
-<footer>
-    <div>
-        <a href="#" class="me-2"><i class="bi bi-github"></i></a>
-        <a href="#" class="me-2"><i class="bi bi-linkedin"></i></a>
-        <a href="#" class="me-2"><i class="bi bi-twitter"></i></a>
+<!-- Contact Section -->
+<section id="contact">
+    <div class="contact">
+        <div class="section-header">
+            <h2>Let's Connect</h2>
+            <p>Interested in my learning journey? Want to discuss a project? I'm always open to conversations about
+                technology, learning, and opportunities.</p>
+        </div>
+
+        <form class="contact-form">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="subject">Subject</label>
+                <input type="text" id="subject" name="subject" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" placeholder="Tell me about your project or just say hello!"
+                    required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-send"></i>
+                Send Message
+            </button>
+        </form>
     </div>
-    <p class="mt-3">&copy; 2025 YourName.dev - Learning and Building in Public</p>
-</footer>
+</section>
+
 
 @code {
     private List<Project>? projects;
@@ -130,5 +156,10 @@
         projects = await ProjectService.GetProjectsAsync();
         learnings = await LearningService.GetLearningsAsync();
         resources = await ResourceService.GetResourcesAsync();
+    }
+
+    private async Task ScrollToContact()
+    {
+        await JS.InvokeVoidAsync("scrollToSection", "contact");
     }
 }

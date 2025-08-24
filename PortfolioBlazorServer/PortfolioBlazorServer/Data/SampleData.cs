@@ -46,7 +46,7 @@
                 Description = "A Blazor Server website documenting my learnings and projects.",
                 TechStack = ".NET 9, Blazor Server, Bootstrap",
                 DemoLink = "#",
-                GithubLink = "https://github.com/username/portfolio",
+                GithubLink = "https://github.com/jtaptso/portfolio-blazor/",
                 DateCreated = DateTime.UtcNow.AddDays(-5)
             },
             new Project
@@ -58,6 +58,17 @@
                 TechStack = ".NET 9, SAP Business One DI API, EF Core",
                 DemoLink = "#",
                 GithubLink = "https://github.com/username/cxml-api",
+                DateCreated = DateTime.UtcNow.AddDays(-2)
+            },
+            new Project
+            {
+                Id = 3,
+                Name = "IT Warehouse Managment System",
+                Slug = "It-ws-mgnt-system",
+                Description = "API to manage IT Warehouse.",
+                TechStack = ".NET 9, EF Core, SQL Server",
+                DemoLink = "#",
+                GithubLink = "https://github.com/jtaptso/ITLagerVerwaltungSystem",
                 DateCreated = DateTime.UtcNow.AddDays(-2)
             }
         };

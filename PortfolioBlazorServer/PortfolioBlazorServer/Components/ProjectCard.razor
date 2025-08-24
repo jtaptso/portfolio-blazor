@@ -1,19 +1,33 @@
-﻿<div class="card h-100 shadow-sm">
-    <div class="card-body">
-        <h5 class="card-title">@Project.Name</h5>
-        <p class="card-text">@Project.Description</p>
-        <p><strong>Tech:</strong> @Project.TechStack</p>
-        @if (!string.IsNullOrEmpty(Project.DemoLink))
+﻿@using PortfolioBlazorServer.Data
+
+<div class="project-card">
+    <div class="card-content">
+        <h3 class="project-title">@Project.Name</h3>
+        <p class="project-description">@Project.Description</p>
+        @if (!string.IsNullOrWhiteSpace(Project.TechStack))
         {
-            <a href="@Project.DemoLink" target="_blank" class="btn btn-primary btn-sm me-2">Demo</a>
+            var techStack = Project.TechStack.Split(", ");
+            <div class="project-tags">
+                @foreach (var tech in techStack)
+                {
+                    <span class="tag">@tech</span>
+                }
+            </div>
         }
-        @if (!string.IsNullOrEmpty(Project.GithubLink))
-        {
-            <a href="@Project.GithubLink" target="_blank" class="btn btn-secondary btn-sm">GitHub</a>
-        }
+        <div class="card-footer">
+            @if (!string.IsNullOrEmpty(Project.DemoLink))
+            {
+                <a href="@Project.DemoLink" class="card-link" target="_blank">Demo</a>
+            }
+            @if (!string.IsNullOrEmpty(Project.GithubLink))
+            {
+                <a href="@Project.GithubLink" class="card-link" target="_blank">GitHub</a>
+            }
+        </div>
     </div>
 </div>
 
 @code {
-    [Parameter] public Project Project { get; set; } = null!;
+    [Parameter]
+    public Project Project { get; set; } = null!;
 }

@@ -1,43 +1,45 @@
-﻿<div class="top-row navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
-    <div class="container-fluid">
-        <a class="navbar-brand fw-bold" href="">PortfolioBlazorServer</a>
-        <button class="navbar-toggler" type="button" @onclick="ToggleNavMenu" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+﻿<!-- Navigation -->
+<nav class="portfolio-nav">
+    <div class="nav-container">
+        <div class="logo">
+            <a href="/">JulesTaptso.dev</a>
+        </div>
+        <ul class="nav-links">
+            <li>
+                <NavLink href="/" Match="NavLinkMatch.All" class="nav-link">Home</NavLink>
+            </li>
+            <li>
+                <NavLink href="/about" class="nav-link">About</NavLink>
+            </li>
+            <li>
+                <NavLink href="/learning" class="nav-link">Learning Journal</NavLink>
+            </li>
+            <li>
+                <NavLink href="/projects" class="nav-link">Projects</NavLink>
+            </li>
+            <li>
+                <NavLink href="/resources" class="nav-link">Resources</NavLink>
+            </li>
+            <li>
+                <NavLink href="/contact" class="nav-link">Contact</NavLink>
+            </li>
+        </ul>
+        <div class="mobile-menu-toggle" @onclick="ToggleMobileMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </div>
-</div>
+</nav>
 
-<div class="@NavMenuCssClass">
-    <nav class="flex-column navbar-nav ms-auto">
-        <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-            <i class="bi bi-house-door nav-icon me-2"></i> Home
-        </NavLink>
-        <NavLink class="nav-link" href="about">
-            <i class="bi bi-person nav-icon me-2"></i> About
-        </NavLink>
-        <NavLink class="nav-link" href="learnings">
-            <i class="bi bi-journal-code nav-icon me-2"></i> Learnings
-        </NavLink>
-        <NavLink class="nav-link" href="projects">
-            <i class="bi bi-kanban nav-icon me-2"></i> Projects
-        </NavLink>
-        <NavLink class="nav-link" href="resources">
-            <i class="bi bi-bookmarks nav-icon me-2"></i> Resources
-        </NavLink>
-        <NavLink class="nav-link" href="contact">
-            <i class="bi bi-envelope nav-icon me-2"></i> Contact
-        </NavLink>
-    </nav>
-</div>
+@code
+{
+    private bool mobileMenuOpen = false;
 
-
-@code {
-    private bool collapseNavMenu = true;
-
-    private string? NavMenuCssClass => collapseNavMenu ? "collapse navbar-collapse" : "collapse navbar-collapse show";
-
-    private void ToggleNavMenu()
+    private void ToggleMobileMenu()
     {
-        collapseNavMenu = !collapseNavMenu;
+        mobileMenuOpen = !mobileMenuOpen;
+
+        // Add mobile menu toggle logic
     }
 }

@@ -1,24 +1,66 @@
 ﻿@page "/projects"
 @inject IProjectService ProjectService
 
-<h2>All Projects</h2>
-@if (projects == null)
-{
-    <p>Loading...</p>
-}
-else
-{
-    <div class="row g-3 mt-3">
-        @foreach (var project in projects)
+<PageTitle>Projects - My Learning Portfolio</PageTitle>
+
+<section class="page-header">
+    <div class="container">
+        <h1>My Projects</h1>
+        <p>Each project represents a step in my learning journey. I document the process, challenges, and solutions.</p>
+    </div>
+</section>
+
+<section class="projects-section">
+    <div class="container">
+        @if (projects == null)
         {
-            <div class="col-md-6 col-lg-4">
-                <ProjectCard Project="project" />
+            <p>Loading...</p>
+        }
+        else
+        {
+            <div class="projects-grid">
+                @foreach (var project in projects)
+                {
+                    <ProjectCard Project="project" />
+                }
             </div>
         }
     </div>
-}
+</section>
 
-@code {
+@code
+{
     private List<Project>? projects;
-    protected override async Task OnInitializedAsync() => projects = await ProjectService.GetProjectsAsync();
+    private List<Project> filteredProjects = new();
+    private List<string> categories = new();
+    private string selectedCategory = "All";
+    private bool isLoading = true;
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            projects = await ProjectService.GetProjectsAsync();
+            if (projects != null)
+            {
+                filteredProjects = projects;
+                //categories = projects.SelectMany(p => p.Categories ?? new List<string>()).Distinct().OrderBy(c => c).ToList();
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading projects: {ex.Message}");
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private void FilterProjects(string category)
+    {
+        selectedCategory = category;
+        if (projects == null) return;
+        //filteredProjects = category == "All" ? projects : projects.Where(p => p.Categories?.Contains(category) == true
+        //).ToList();
+    }
 }

@@ -2,18 +2,29 @@
 
 <PageTitle>PortfolioBlazorServer</PageTitle>
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
 
-    <main>
-        <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+<NavMenu />
+
+<!-- Main Content -->
+<main>
+    @Body
+
+    <!-- Footer -->
+    <footer class="portfolio-footer">
+        <div class="social-links">
+            <a href="https://github.com/jtaptso" class="social-link">
+                <i class="bi bi-github"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/jules-valere-taptso-fotso-9a6817203/" class="social-link">
+                <i class="bi bi-linkedin"></i>
+            </a>
+            <a href="#" class="social-link">
+                <i class="bi bi-twitter"></i>
+            </a>
+            <a href="#" class="social-link">
+                <i class="bi bi-envelope"></i>
+            </a>
         </div>
-
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
-</div>
+        <p>&copy; 2025 JulesTaptso.dev - Learning and Building in Public</p>
+    </footer>
+</main>

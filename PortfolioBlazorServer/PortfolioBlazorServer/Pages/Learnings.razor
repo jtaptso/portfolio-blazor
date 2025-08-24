@@ -1,34 +1,378 @@
 ﻿@page "/learnings"
 @inject ILearningService LearningService
 
-<h2>All Learnings</h2>
-<p>Here’s a complete list of my learning entries. Each entry documents what I learned, the challenges I faced, and the solutions I discovered.</p>
+<PageTitle>Learning Journal - My Development Journey</PageTitle>
 
-@if (learnings == null)
-{
-    <p>Loading learnings...</p>
-}
-else if (!learnings.Any())
-{
-    <p>No learnings available yet.</p>
-}
-else
-{
-    <div class="row g-3 mt-3">
-        @foreach (var learning in learnings)
+<!-- Page Header -->
+<div class="page-header">
+    <div class="container">
+        <h1>Learning Journal</h1>
+        <p>Documenting my journey through challenges, discoveries, and continuous growth in software development</p>
+    </div>
+</div>
+
+<!-- Learning Controls and Content -->
+<section class="learning-section">
+    <div class="container">
+        <!-- Filter and Search Controls -->
+        <div class="learning-controls">
+            <div class="search-box">
+                <div class="search-input-wrapper">
+                    <i class="search-icon">🔍</i>
+                    <input type="text" placeholder="Search learnings..." @bind="searchTerm" @oninput="OnSearchInput"
+                        class="search-input" />
+                    @if (!string.IsNullOrEmpty(searchTerm))
+                    {
+                        <button class="clear-search" @onclick="ClearSearch">✕</button>
+                    }
+                </div>
+            </div>
+
+            <div class="category-filter">
+                <select value="@selectedCategory" @onchange="OnCategoryChange" class="category-select">
+                    <option value="">All Categories</option>
+                    @foreach (var category in categories)
+                    {
+                        <option value="@category">@category</option>
+                    }
+                </select>
+            </div>
+
+            <div class="sort-options">
+                <select value="sortOption" @onchange="OnSortChange" class="sort-select">
+                    <option value="date-desc">Newest First</option>
+                    <option value="date-asc">Oldest First</option>
+                    <option value="title-asc">Title A-Z</option>
+                    <option value="title-desc">Title Z-A</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Results Summary -->
+        <div class="results-summary">
+            @if (filteredLearnings != null)
+            {
+                <p class="results-count">
+                    Showing @filteredLearnings.Count() of @(allLearnings?.Count() ?? 0) learning entries
+                    @if (!string.IsNullOrEmpty(searchTerm) || !string.IsNullOrEmpty(selectedCategory))
+                    {
+                        <span class="filter-info">
+                            @if (!string.IsNullOrEmpty(searchTerm))
+                            {
+                                <span class="filter-tag">
+                                    Search: "@searchTerm"
+                                    <button @onclick="ClearSearch" class="remove-filter">✕</button>
+                                </span>
+                            }
+                            @if (!string.IsNullOrEmpty(selectedCategory))
+                            {
+                                <span class="filter-tag">
+                                    Category: @selectedCategory
+                                    <button @onclick="ClearCategory" class="remove-filter">✕</button>
+                                </span>
+                            }
+                        </span>
+                    }
+                </p>
+            }
+        </div>
+
+        <!-- Learning Grid -->
+        @if (isLoading)
         {
-            <div class="col-md-6 col-lg-4">
-                <LearningCard Learning="learning" />
+            <div class="loading-container">
+                <div class="spinner"></div>
+                <p>Loading your learning journey...</p>
+            </div>
+        }
+        else if (filteredLearnings == null || !filteredLearnings.Any())
+        {
+            <div class="empty-state">
+                @if (allLearnings == null || !allLearnings.Any())
+                {
+                    <div class="empty-icon">📚</div>
+                    <h3>No Learning Entries Yet</h3>
+                    <p>Your learning journey documentation will appear here as you add new entries.</p>
+                    <a href="/add-learning" class="btn btn-primary">
+                        <i class="icon-plus">➕</i>
+                        Add First Learning Entry
+                    </a>
+                }
+                else
+                {
+                    <div class="empty-icon">🔍</div>
+                    <h3>No Results Found</h3>
+                    <p>Try adjusting your search terms or filters to find what you're looking for.</p>
+                    <button @onclick="ClearAllFilters" class="btn btn-outline">
+                        Clear All Filters
+                    </button>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="learning-grid">
+                @foreach (var learning in filteredLearnings)
+                {
+                    <div class="learning-card-wrapper" @key="learning.Id">
+                        <LearningCard Learning="learning" OnCategoryClick="FilterByCategory" />
+                    </div>
+                }
+            </div>
+
+            <!-- Load More Button (if implementing pagination) -->
+            @if (hasMoreItems)
+            {
+                <div class="load-more-section">
+                    <button @onclick="LoadMoreItems" class="btn btn-outline" disabled="@isLoadingMore">
+                        @if (isLoadingMore)
+                        {
+                            <div class="mini-spinner"></div>
+                            <span>Loading...</span>
+                        }
+                        else
+                        {
+                            <span>Load More Entries</span>
+                            <i class="icon-arrow-down">⬇️</i>
+                        }
+                    </button>
+                </div>
+            }
+        }
+
+        <!-- Learning Stats (Optional) -->
+        @if (allLearnings != null && allLearnings.Any())
+        {
+            <div class="learning-stats">
+                <h3>Learning Journey Stats</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-number">@allLearnings.Count()</span>
+                        <span class="stat-label">Total Entries</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">@categories.Count()</span>
+                        <span class="stat-label">Categories</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">@GetThisMonthCount()</span>
+                        <span class="stat-label">This Month</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">@GetLearningStreak()</span>
+                        <span class="stat-label">Day Streak</span>
+                    </div>
+                </div>
             </div>
         }
     </div>
-}
+</section>
 
 @code {
-    private List<Learning>? learnings;
+    private List<Learning>? allLearnings;
+    private IEnumerable<Learning>? filteredLearnings;
+    private List<string> categories = new();
+    private string searchTerm = "";
+    private string selectedCategory = "";
+    private string sortOption = "date-desc";
+    private bool isLoading = true;
+    private bool isLoadingMore = false;
+    private bool hasMoreItems = false;
+    private int currentPage = 1;
+    private const int pageSize = 12;
 
     protected override async Task OnInitializedAsync()
     {
-        learnings = await LearningService.GetLearningsAsync();
+        await LoadLearnings();
+    }
+
+    private async Task LoadLearnings()
+    {
+        isLoading = true;
+        try
+        {
+            allLearnings = await LearningService.GetLearningsAsync();
+            // Assign Category objects based on CategoryId
+            var allCategories = PortfolioBlazorServer.Data.SampleData.Categories;
+            if (allLearnings != null)
+            {
+                foreach (var learning in allLearnings)
+                {
+                    learning.Category = allCategories.FirstOrDefault(c => c.Id == learning.CategoryId) ?? new Category
+                    {
+                        Id =
+                    learning.CategoryId,
+                        Name = "Unknown"
+                    };
+                }
+            }
+            ExtractCategories();
+            ApplyFiltersAndSort();
+        }
+        catch (Exception ex)
+        {
+            // Handle error - could show a toast notification
+            Console.WriteLine($"Error loading learnings: {ex.Message}");
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private void ExtractCategories()
+    {
+        if (allLearnings != null)
+        {
+            categories = allLearnings
+            .Where(l => l.Category != null)
+            .Select(l => l.Category.Name!)
+            .Distinct()
+            .OrderBy(c => c)
+            .ToList();
+        }
+    }
+
+    private void OnSearchInput(ChangeEventArgs e)
+    {
+        searchTerm = e.Value?.ToString() ?? "";
+        ApplyFiltersAndSort();
+    }
+
+    private void OnCategoryChange(ChangeEventArgs e)
+    {
+        selectedCategory = e.Value?.ToString() ?? "";
+        ApplyFiltersAndSort();
+    }
+
+    private void OnSortChange(ChangeEventArgs e)
+    {
+        sortOption = e.Value?.ToString() ?? "date-desc";
+        ApplyFiltersAndSort();
+    }
+
+    private void FilterByCategory(string category)
+    {
+        selectedCategory = category;
+        ApplyFiltersAndSort();
+    }
+
+    private void ClearSearch()
+    {
+        searchTerm = "";
+        ApplyFiltersAndSort();
+    }
+
+    private void ClearCategory()
+    {
+        selectedCategory = "";
+        ApplyFiltersAndSort();
+    }
+
+    private void ClearAllFilters()
+    {
+        searchTerm = "";
+        selectedCategory = "";
+        ApplyFiltersAndSort();
+    }
+
+    private void ApplyFiltersAndSort()
+    {
+        if (allLearnings == null)
+        {
+            filteredLearnings = null;
+            return;
+        }
+
+        var query = allLearnings.AsEnumerable();
+
+        // Apply search filter
+        if (!string.IsNullOrEmpty(searchTerm))
+        {
+            query = query.Where(l =>
+            (l.Title?.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ?? false) ||
+            (l.Content?.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ?? false) ||
+            (l.Summary?.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ?? false) ||
+            (l.Tags?.Any(t => t.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)) ?? false)
+            );
+        }
+
+        // Apply category filter
+        if (!string.IsNullOrEmpty(selectedCategory))
+        {
+            query = query.Where(l => l.Category.Name == selectedCategory);
+        }
+
+        // Apply sorting
+        query = sortOption switch
+        {
+            "date-asc" => query.OrderBy(l => l.DateCreated),
+            "title-asc" => query.OrderBy(l => l.Title),
+            "title-desc" => query.OrderByDescending(l => l.Title),
+            _ => query.OrderByDescending(l => l.DateCreated)
+        };
+
+        filteredLearnings = query.ToList();
+        currentPage = 1;
+        UpdatePagination();
+    }
+
+    private void UpdatePagination()
+    {
+        if (filteredLearnings != null)
+        {
+            hasMoreItems = filteredLearnings.Count() > currentPage * pageSize;
+            filteredLearnings = filteredLearnings.Take(currentPage * pageSize);
+        }
+    }
+
+    private async Task LoadMoreItems()
+    {
+        isLoadingMore = true;
+        await Task.Delay(500); // Simulate loading delay
+        currentPage++;
+        UpdatePagination();
+        isLoadingMore = false;
+    }
+
+    private int GetThisMonthCount()
+    {
+        if (allLearnings == null) return 0;
+        var currentMonth = DateTime.Now.Month;
+        var currentYear = DateTime.Now.Year;
+        return allLearnings.Count(l =>
+        l.DateCreated.Month == currentMonth &&
+        l.DateCreated.Year == currentYear);
+    }
+
+    private int GetLearningStreak()
+    {
+        if (allLearnings == null || !allLearnings.Any()) return 0;
+
+        var sortedDates = allLearnings
+        .Select(l => l.DateCreated.Date)
+        .Distinct()
+        .OrderByDescending(d => d)
+        .ToList();
+
+        if (!sortedDates.Any()) return 0;
+
+        int streak = 1;
+        var currentDate = sortedDates[0];
+
+        for (int i = 1; i < sortedDates.Count; i++)
+        {
+            if (currentDate.AddDays(-1) == sortedDates[i])
+            {
+                streak++;
+                currentDate = sortedDates[i];
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        return streak;
     }
 }
