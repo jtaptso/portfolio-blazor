@@ -83,65 +83,74 @@
 </section>
 
 <!-- Resources Section -->
-<section id="resources">
-    <div class="section-header">
-        <h2>Featured Resources</h2>
-        @if (resources == null)
-        {
-            <p>Loading...</p>
-        }
-        else if (!resources.Any())
-        {
 
+<section id="resources" class="projects-section">
+    <div class="projects-header-centered">
+        <h2 class="projects-title">Featured Resources</h2>
+        <p class="projects-description">Curated resources to help you learn and build more effectively.</p>
+    </div>
+    @if (resources == null)
+    {
+        <div class="projects-loading">
+            <p>Loading...</p>
+        </div>
+    }
+    else if (!resources.Any())
+    {
+        <div class="projects-empty">
             <p>No resources yet.</p>
-        }
-        else
-        {
-            <div class="row g-3 mt-3">
-                @foreach (var resource in resources.Take(3))
-                {
-                    <div class="col-md-6 col-lg-4">
-                        <ResourceCard Resource="resource" />
-                    </div>
-                }
-            </div>
-        }
+        </div>
+    }
+    else
+    {
+        <div class="projects-grid">
+            @foreach (var resource in resources.Take(3))
+            {
+                <div class="project-card-wrapper">
+                    <ResourceCard Resource="resource" />
+                </div>
+            }
+        </div>
+    }
+    <div class="projects-footer">
         <a href="/resources" class="btn btn-primary mt-3">View All Resources</a>
     </div>
 </section>
 
-<!-- Contact Section -->
-<section id="contact">
-    <div class="contact">
-        <div class="section-header">
-            <h2>Let's Connect</h2>
-            <p>Interested in my learning journey? Want to discuss a project? I'm always open to conversations about
-                technology, learning, and opportunities.</p>
-        </div>
 
-        <form class="contact-form">
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="subject">Subject</label>
-                <input type="text" id="subject" name="subject" required>
-            </div>
-            <div class="form-group">
-                <label for="message">Message</label>
-                <textarea id="message" name="message" placeholder="Tell me about your project or just say hello!"
-                    required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">
-                <i class="bi bi-send"></i>
-                Send Message
-            </button>
-        </form>
+<!-- Contact Section -->
+<section id="contact" class="projects-section">
+    <div class="projects-header-centered">
+        <h2 class="projects-title">Let's Connect</h2>
+        <p class="projects-description">Interested in my learning journey? Want to discuss a project? I'm always open to
+            conversations about technology, learning, and opportunities.</p>
+    </div>
+    <div class="contact-content">
+        <div class="contact-form">
+            <form>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" placeholder="Tell me about your project or just say hello!"
+                        required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-send"></i>
+                    Send Message
+                </button>
+            </form>
+        </div>
     </div>
 </section>
 

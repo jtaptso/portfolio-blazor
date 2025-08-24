@@ -280,6 +280,18 @@ body {
     color: white;
 }
 
+button.btn.btn-primary {
+    display: inline-flex;
+    /* This is already set */
+    justify-content: center;
+    /* Centers content horizontally */
+    align-items: center;
+    /* Centers content vertically */
+    /* You might need to adjust padding as it's currently only on top/bottom */
+    /* Example: apply padding to all sides */
+}
+
+
 .btn-primary:hover {
     background: #1d4ed8;
     transform: translateY(-2px);
@@ -530,15 +542,26 @@ section {
 }
 
 .card-content {
-    padding: 1.5rem;
+    padding: 2rem 0;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     text-align: center;
     gap: 1.7rem;
-    padding: 2rem 0;
-    justify-content: center;
     flex: 1;
+}
+
+.card-title,
+.card-description,
+.card-tags,
+.card-footer {
+    text-align: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 .card-title {
@@ -658,49 +681,75 @@ section {
 
 /* Contact Section */
 .contact-content {
-    display: grid;
+    /* display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
-    margin-top: 2rem;
+    margin-top: 2rem; */
+
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }
 
 .contact-form {
     background: white;
-    padding: 2rem;
-    border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    padding: 2.5rem 2rem;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(37, 99, 235, 0.10);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    max-width: 500px;
+    width: 100%;
+    justify-content: center;
 }
+
+/* .contact-form form {
+    display: block;
+    margin: 0 auto;
+
+} */
 
 .form-group {
     margin-bottom: 1.5rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .form-group label {
     display: block;
     margin-bottom: 0.5rem;
-    font-weight: 500;
-    color: #374151;
+    font-weight: 600;
+    color: #2563eb;
+    font-size: 1.1rem;
 }
 
 .form-group input,
 .form-group textarea {
     width: 100%;
-    padding: 0.75rem;
-    border: 2px solid #e5e7eb;
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: border-color 0.3s ease;
+    padding: 0.85rem 1rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 1.05rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background: #f8fafc;
+    margin-bottom: 0.5rem;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
     border-color: #2563eb;
+    box-shadow: 0 0 0 2px #2563eb22;
 }
 
 .form-group textarea {
     resize: vertical;
     min-height: 120px;
+    max-height: 240px;
 }
 
 .contact-info {
@@ -708,6 +757,18 @@ section {
     padding: 2rem;
     border-radius: 15px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.contact-form button[type="submit"],
+.contact-form .btn-primary {
+    margin-top: 1rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(59, 130, 246, 0.08);
+    padding: 0.85rem 0;
+    width: 100%;
+    letter-spacing: 0.02em;
 }
 
 .contact-item {
@@ -785,11 +846,16 @@ section {
 }
 
 /* Footer */
-.footer {
-    background: #1e293b;
-    color: #94a3b8;
-    padding: 3rem 0 1rem;
+
+.portfolio-footer {
+    background: linear-gradient(90deg, #2563eb 0%, #8b5cf6 100%);
+    color: #fff;
+    padding: 2.5rem 0 1.5rem;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .footer-content {
