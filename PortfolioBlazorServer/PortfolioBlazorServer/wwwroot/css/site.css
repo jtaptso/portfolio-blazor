@@ -337,17 +337,21 @@ body {
 
 /* --- HERO SECTION --- */
 .hero {
-    background: linear-gradient(135deg, #2563eb 0%, #8b5cf6 100%);
-    color: #fff;
-    padding: 7rem 0 5rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    /*padding: 8rem 0 4rem;*/
+    padding: 0;
     text-align: center;
     position: relative;
     overflow: hidden;
+    /*margin-top: 80px;*/
     min-height: 100vh;
     height: 100vh;
+    width:100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
 }
 
 .hero::before {
@@ -363,11 +367,16 @@ body {
 }
 
 .hero-content {
-    position: relative;
-    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center children horizontally */
+    justify-content: center; /* Center children vertically */
+    width: 100%;
     max-width: 700px;
     margin: 0 auto;
     padding: 0 2rem;
+    text-align: center;
+    height: 100%;
 }
 
 .hero-title {
@@ -508,7 +517,7 @@ body {
 }
 
 /* Hero Section */
-.hero {
+/*.hero {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     padding: 8rem 0 4rem;
@@ -558,7 +567,7 @@ body {
     z-index: 1;
     padding: 0 2rem;
 }
-
+*/
 .hero h1 {
     font-size: 3.5rem;
     margin-bottom: 1rem;
@@ -1219,7 +1228,7 @@ section {
 
 /* Progress Bar */
 .progress-container {
-    position: fixed;
+    /*position: fixed;*/
     top: 0;
     left: 0;
     width: 100%;

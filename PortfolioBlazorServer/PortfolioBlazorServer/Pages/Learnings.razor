@@ -4,15 +4,19 @@
 <PageTitle>Learning Journal - My Development Journey</PageTitle>
 
 <!-- Page Header -->
-<div class="page-header">
-    <div class="container">
-        <h1>Learning Journal</h1>
-        <p>Documenting my journey through challenges, discoveries, and continuous growth in software development</p>
+<section class="projects-section">
+    <div class="projects-header-centered">
+        <h2 class="projects-title">Learning Journal</h2>
+        <p class="projects-description">Documenting my journey through challenges, discoveries, and continuous growth in
+            software development.</p>
     </div>
-</div>
+</section>
 
 <!-- Learning Controls and Content -->
-<section class="learning-section">
+<section class="projects-section">
+    <div class="projects-header-centered">
+        <h2 class="projects-title">Filter & Search</h2>
+    </div>
     <div class="container">
         <!-- Filter and Search Controls -->
         <div class="learning-controls">
@@ -47,126 +51,232 @@
                 </select>
             </div>
         </div>
-
-        <!-- Results Summary -->
-        <div class="results-summary">
-            @if (filteredLearnings != null)
-            {
-                <p class="results-count">
-                    Showing @filteredLearnings.Count() of @(allLearnings?.Count() ?? 0) learning entries
-                    @if (!string.IsNullOrEmpty(searchTerm) || !string.IsNullOrEmpty(selectedCategory))
-                    {
-                        <span class="filter-info">
-                            @if (!string.IsNullOrEmpty(searchTerm))
-                            {
-                                <span class="filter-tag">
-                                    Search: "@searchTerm"
-                                    <button @onclick="ClearSearch" class="remove-filter">✕</button>
-                                </span>
-                            }
-                            @if (!string.IsNullOrEmpty(selectedCategory))
-                            {
-                                <span class="filter-tag">
-                                    Category: @selectedCategory
-                                    <button @onclick="ClearCategory" class="remove-filter">✕</button>
-                                </span>
-                            }
-                        </span>
-                    }
-                </p>
-            }
+    </div>
+    <!-- Filter and Search Controls -->
+    <div class="learning-controls">
+        <div class="search-box">
+            <div class="search-input-wrapper">
+                <i class="search-icon">🔍</i>
+                <input type="text" placeholder="Search learnings..." @bind="searchTerm" @oninput="OnSearchInput"
+                    class="search-input" />
+                @if (!string.IsNullOrEmpty(searchTerm))
+                {
+                    <button class="clear-search" @onclick="ClearSearch">✕</button>
+                }
+            </div>
         </div>
 
-        <!-- Learning Grid -->
-        @if (isLoading)
-        {
-            <div class="loading-container">
-                <div class="spinner"></div>
-                <p>Loading your learning journey...</p>
-            </div>
-        }
-        else if (filteredLearnings == null || !filteredLearnings.Any())
-        {
-            <div class="empty-state">
-                @if (allLearnings == null || !allLearnings.Any())
+        <div class="category-filter">
+            <select value="@selectedCategory" @onchange="OnCategoryChange" class="category-select">
+                <option value="">All Categories</option>
+                @foreach (var category in categories)
                 {
-                    <div class="empty-icon">📚</div>
-                    <h3>No Learning Entries Yet</h3>
-                    <p>Your learning journey documentation will appear here as you add new entries.</p>
-                    <a href="/add-learning" class="btn btn-primary">
-                        <i class="icon-plus">➕</i>
-                        Add First Learning Entry
-                    </a>
+                    <option value="@category">@category</option>
                 }
-                else
-                {
-                    <div class="empty-icon">🔍</div>
-                    <h3>No Results Found</h3>
-                    <p>Try adjusting your search terms or filters to find what you're looking for.</p>
-                    <button @onclick="ClearAllFilters" class="btn btn-outline">
-                        Clear All Filters
-                    </button>
-                }
-            </div>
-        }
-        else
-        {
-            <div class="learning-grid">
-                @foreach (var learning in filteredLearnings)
-                {
-                    <div class="learning-card-wrapper" @key="learning.Id">
-                        <LearningCard Learning="learning" OnCategoryClick="FilterByCategory" />
-                    </div>
-                }
-            </div>
+            </select>
+        </div>
 
-            <!-- Load More Button (if implementing pagination) -->
-            @if (hasMoreItems)
-            {
-                <div class="load-more-section">
-                    <button @onclick="LoadMoreItems" class="btn btn-outline" disabled="@isLoadingMore">
-                        @if (isLoadingMore)
-                        {
-                            <div class="mini-spinner"></div>
-                            <span>Loading...</span>
-                        }
-                        else
-                        {
-                            <span>Load More Entries</span>
-                            <i class="icon-arrow-down">⬇️</i>
-                        }
-                    </button>
-                </div>
-            }
-        }
-
-        <!-- Learning Stats (Optional) -->
-        @if (allLearnings != null && allLearnings.Any())
+        <div class="sort-options">
+            <select value="sortOption" @onchange="OnSortChange" class="sort-select">
+                <option value="date-desc">Newest First</option>
+                <option value="date-asc">Oldest First</option>
+                <option value="title-asc">Title A-Z</option>
+                <option value="title-desc">Title Z-A</option>
+            </select>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="projects-header-centered">
+        <h2 class="projects-title">Results Summary</h2>
+    </div>
+    <!-- Results Summary -->
+    <div class="results-summary">
+        @if (filteredLearnings != null)
         {
-            <div class="learning-stats">
-                <h3>Learning Journey Stats</h3>
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <span class="stat-number">@allLearnings.Count()</span>
-                        <span class="stat-label">Total Entries</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">@categories.Count()</span>
-                        <span class="stat-label">Categories</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">@GetThisMonthCount()</span>
-                        <span class="stat-label">This Month</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">@GetLearningStreak()</span>
-                        <span class="stat-label">Day Streak</span>
-                    </div>
-                </div>
-            </div>
+            <p class="results-count">
+                Showing @filteredLearnings.Count() of @(allLearnings?.Count() ?? 0) learning entries
+                @if (!string.IsNullOrEmpty(searchTerm) || !string.IsNullOrEmpty(selectedCategory))
+                {
+                    <span class="filter-info">
+                        @if (!string.IsNullOrEmpty(searchTerm))
+                        {
+                            <span class="filter-tag">
+                                Search: "@searchTerm"
+                                <button @onclick="ClearSearch" class="remove-filter">✕</button>
+                            </span>
+                        }
+                        @if (!string.IsNullOrEmpty(selectedCategory))
+                        {
+                            <span class="filter-tag">
+                                Category: @selectedCategory
+                                <button @onclick="ClearCategory" class="remove-filter">✕</button>
+                            </span>
+                        }
+                    </span>
+                }
+            </p>
         }
     </div>
 </section>
+<section>
+    <div class="projects-header-centered">
+        <h2 class="projects-title">Learning Entries</h2>
+    </div>
+    <!-- Learning Grid -->
+    @if (isLoading)
+    {
+        <div class="loading-container">
+            <div class="spinner"></div>
+            <p>Loading your learning journey...</p>
+        </div>
+    }
+    else if (filteredLearnings == null || !filteredLearnings.Any())
+    {
+        <div class="empty-state">
+            @if (allLearnings == null || !allLearnings.Any())
+            {
+                <div class="empty-icon">📚</div>
+                <h3>No Learning Entries Yet</h3>
+                <p>Your learning journey documentation will appear here as you add new entries.</p>
+                <a href="/add-learning" class="btn btn-primary">
+                    <i class="icon-plus">➕</i>
+                    Add First Learning Entry
+                </a>
+            }
+            else
+            {
+                <div class="empty-icon">🔍</div>
+                <h3>No Results Found</h3>
+                <p>Try adjusting your search terms or filters to find what you're looking for.</p>
+                <button @onclick="ClearAllFilters" class="btn btn-outline">
+                    Clear All Filters
+                </button>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="projects-grid">
+            @foreach (var learning in filteredLearnings)
+            {
+                <div class="project-card-wrapper" @key="learning.Id">
+                    <LearningCard Learning="learning" OnCategoryClick="FilterByCategory" />
+                </div>
+            }
+        </div>
+
+        <!-- Load More Button (if implementing pagination) -->
+        @if (hasMoreItems)
+        {
+            <div class="load-more-section">
+                <button @onclick="LoadMoreItems" class="btn btn-outline" disabled="@isLoadingMore">
+                    @if (isLoadingMore)
+                    {
+                        <div class="mini-spinner"></div>
+                        <span>Loading...</span>
+                    }
+                    else
+                    {
+                        <span>Load More Entries</span>
+                        <i class="icon-arrow-down">⬇️</i>
+                    }
+                </button>
+            </div>
+        }
+    }
+</section>
+@* <!-- Learning Grid --> *@
+@* @if (isLoading)
+{
+    <div class="loading-container">
+        <div class="spinner"></div>
+        <p>Loading your learning journey...</p>
+    </div>
+}
+else if (filteredLearnings == null || !filteredLearnings.Any())
+{
+    <div class="empty-state">
+        @if (allLearnings == null || !allLearnings.Any())
+        {
+            <div class="empty-icon">📚</div>
+            <h3>No Learning Entries Yet</h3>
+            <p>Your learning journey documentation will appear here as you add new entries.</p>
+            <a href="/add-learning" class="btn btn-primary">
+                <i class="icon-plus">➕</i>
+                Add First Learning Entry
+            </a>
+        }
+        else
+        {
+            <div class="empty-icon">🔍</div>
+            <h3>No Results Found</h3>
+            <p>Try adjusting your search terms or filters to find what you're looking for.</p>
+            <button @onclick="ClearAllFilters" class="btn btn-outline">
+                Clear All Filters
+            </button>
+        }
+    </div>
+}
+else
+{
+    <div class="projects-grid">
+        @foreach (var learning in filteredLearnings)
+        {
+            <div class="project-card-wrapper" @key="learning.Id">
+                <LearningCard Learning="learning" OnCategoryClick="FilterByCategory" />
+            </div>
+        }
+    </div>
+
+    <!-- Load More Button (if implementing pagination) -->
+    @if (hasMoreItems)
+    {
+        <div class="load-more-section">
+            <button @onclick="LoadMoreItems" class="btn btn-outline" disabled="@isLoadingMore">
+                @if (isLoadingMore)
+                {
+                    <div class="mini-spinner"></div>
+                    <span>Loading...</span>
+                }
+                else
+                {
+                    <span>Load More Entries</span>
+                    <i class="icon-arrow-down">⬇️</i>
+                }
+            </button>
+        </div>
+    }
+} *@
+
+<!-- Learning Stats (Optional) -->
+@if (allLearnings != null && allLearnings.Any())
+{
+    <section class="projects-section">
+        <div class="projects-header-centered">
+            <h2 class="projects-title">Learning Journey Stats</h2>
+            <p class="projects-description">A snapshot of your progress and achievements.</p>
+        </div>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <span class="stat-number">@allLearnings.Count()</span>
+                <span class="stat-label">Total Entries</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">@categories.Count()</span>
+                <span class="stat-label">Categories</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">@GetThisMonthCount()</span>
+                <span class="stat-label">This Month</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">@GetLearningStreak()</span>
+                <span class="stat-label">Day Streak</span>
+            </div>
+        </div>
+    </section>
+}
 
 @code {
     private List<Learning>? allLearnings;
@@ -192,6 +302,14 @@
         try
         {
             allLearnings = await LearningService.GetLearningsAsync();
+            Console.WriteLine($"DEBUG: allLearnings count = {allLearnings?.Count ?? 0}");
+            if (allLearnings != null)
+            {
+                foreach (var learning in allLearnings)
+                {
+                    Console.WriteLine($"DEBUG: Learning Id={learning.Id}, Title={learning.Title}");
+                }
+            }
             // Assign Category objects based on CategoryId
             var allCategories = PortfolioBlazorServer.Data.SampleData.Categories;
             if (allLearnings != null)
