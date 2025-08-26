@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 340 60"
+  width="340"
+  height="60"
+  preserveAspectRatio="xMinYMid meet"
+>
+  <!-- Hexagone avec la couleur primaire -->
+  <circle
+    cx="30"
+    cy="30"
+    r="25"
+    fill="#1d2975"
+  />
+
+  <!-- Monogramme JT centré -->
+  <text
+    x="30"
+    y="40"
+    text-anchor="middle"
+    font-family="Arial, sans-serif"
+    font-size="28"
+    font-weight="bold"
+    fill="#ffffff"
+  >
+    JT
+  </text>
+
+  <!-- Nom du site, “.dev” en accent -->
+  <text
+    x="65"
+    y="42"
+    font-family="Arial, sans-serif"
+    font-size="28"
+    fill="#3e58ff"
+	font-weight="bold"
+  >
+    JulesTaptso
+    <tspan
+	x="228"
+    y="42"
+      fill="#25359a"
+      
+    >
+      .dev
+    </tspan>
+  </text>
+</svg>
+

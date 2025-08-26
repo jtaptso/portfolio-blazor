@@ -53,19 +53,19 @@
     </div>
     <div class="projects-grid">
         <div class="project-card-wrapper">
-            <div class="timeline-date">2025 - Present</div>
+            @* <div class="timeline-date">2025 - Present</div> *@
             <h4>Deep Dive into .NET Ecosystem</h4>
             <p>Currently mastering ASP.NET Core, Entity Framework, and Blazor. Building real-world applications
                 and documenting the learning process.</p>
         </div>
         <div class="project-card-wrapper">
-            <div class="timeline-date">2024</div>
+            @* <div class="timeline-date">2024</div> *@
             <h4>Data Analysis & Business Intelligence</h4>
             <p>Developed proficiency in Power BI, advanced SQL, and business analytics. Created multiple
                 dashboards for real business scenarios.</p>
         </div>
         <div class="project-card-wrapper">
-            <div class="timeline-date">2023</div>
+            @* <div class="timeline-date">2023</div> *@
             <h4>Foundation Building</h4>
             <p>Started with web development fundamentals, database design, and business process analysis. Built
                 first portfolio projects.</p>
@@ -167,7 +167,7 @@
                 }
             </div>
         </div>
-        <div class="project-card-wrapper">
+        @*  <div class="project-card-wrapper">
             <h4 class="projects-title">Let's Connect</h4>
             <p>Interested in discussing technology, learning, or potential collaboration?</p>
             <div class="cta-buttons">
@@ -180,6 +180,41 @@
                     View Projects
                 </a>
             </div>
+        </div> *@
+    </div>
+</section>
+
+<section id="contact" class="projects-section">
+    <div class="projects-header-centered">
+        <h2 class="projects-title">Let's Connect</h2>
+        <p class="projects-description">Interested in my learning journey? Want to discuss a project? I'm always open to
+            conversations about technology, learning, and opportunities.</p>
+    </div>
+    <div class="contact-content">
+        <div class="contact-form">
+            <form>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" placeholder="Tell me about your project or just say hello!"
+                        required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-send"></i>
+                    Send Message
+                </button>
+            </form>
         </div>
     </div>
 </section>
