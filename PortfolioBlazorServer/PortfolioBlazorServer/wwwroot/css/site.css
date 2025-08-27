@@ -1321,6 +1321,12 @@ section {
     }
 }
 
+/*learning styles*/
+.stats-grid {
+    display: flex;
+    justify-content: space-around;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .mobile-menu-toggle {

@@ -16,43 +16,8 @@
 <section class="projects-section">
     <div class="projects-header-centered">
         <h2 class="projects-title">Filter & Search</h2>
+        <p class="projects-description">Find learnings by keyword or category.</p>
     </div>
-    <div class="container">
-        <!-- Filter and Search Controls -->
-        <div class="learning-controls">
-            <div class="search-box">
-                <div class="search-input-wrapper">
-                    <i class="search-icon">🔍</i>
-                    <input type="text" placeholder="Search learnings..." @bind="searchTerm" @oninput="OnSearchInput"
-                        class="search-input" />
-                    @if (!string.IsNullOrEmpty(searchTerm))
-                    {
-                        <button class="clear-search" @onclick="ClearSearch">✕</button>
-                    }
-                </div>
-            </div>
-
-            <div class="category-filter">
-                <select value="@selectedCategory" @onchange="OnCategoryChange" class="category-select">
-                    <option value="">All Categories</option>
-                    @foreach (var category in categories)
-                    {
-                        <option value="@category">@category</option>
-                    }
-                </select>
-            </div>
-
-            <div class="sort-options">
-                <select value="sortOption" @onchange="OnSortChange" class="sort-select">
-                    <option value="date-desc">Newest First</option>
-                    <option value="date-asc">Oldest First</option>
-                    <option value="title-asc">Title A-Z</option>
-                    <option value="title-desc">Title Z-A</option>
-                </select>
-            </div>
-        </div>
-    </div>
-    <!-- Filter and Search Controls -->
     <div class="learning-controls">
         <div class="search-box">
             <div class="search-input-wrapper">
@@ -65,7 +30,6 @@
                 }
             </div>
         </div>
-
         <div class="category-filter">
             <select value="@selectedCategory" @onchange="OnCategoryChange" class="category-select">
                 <option value="">All Categories</option>
@@ -75,22 +39,12 @@
                 }
             </select>
         </div>
-
-        <div class="sort-options">
-            <select value="sortOption" @onchange="OnSortChange" class="sort-select">
-                <option value="date-desc">Newest First</option>
-                <option value="date-asc">Oldest First</option>
-                <option value="title-asc">Title A-Z</option>
-                <option value="title-desc">Title Z-A</option>
-            </select>
-        </div>
     </div>
 </section>
-<section>
+@* <section class="projects-section">
     <div class="projects-header-centered">
         <h2 class="projects-title">Results Summary</h2>
     </div>
-    <!-- Results Summary -->
     <div class="results-summary">
         @if (filteredLearnings != null)
         {
@@ -118,12 +72,11 @@
             </p>
         }
     </div>
-</section>
-<section>
+</section> *@
+<section class="projects-section">
     <div class="projects-header-centered">
         <h2 class="projects-title">Learning Entries</h2>
     </div>
-    <!-- Learning Grid -->
     @if (isLoading)
     {
         <div class="loading-container">
@@ -161,12 +114,10 @@
             @foreach (var learning in filteredLearnings)
             {
                 <div class="project-card-wrapper" @key="learning.Id">
-                    <LearningCard Learning="learning" OnCategoryClick="FilterByCategory" />
+                    <LearningCard Learning="learning" />
                 </div>
             }
         </div>
-
-        <!-- Load More Button (if implementing pagination) -->
         @if (hasMoreItems)
         {
             <div class="load-more-section">
@@ -186,68 +137,6 @@
         }
     }
 </section>
-@* <!-- Learning Grid --> *@
-@* @if (isLoading)
-{
-    <div class="loading-container">
-        <div class="spinner"></div>
-        <p>Loading your learning journey...</p>
-    </div>
-}
-else if (filteredLearnings == null || !filteredLearnings.Any())
-{
-    <div class="empty-state">
-        @if (allLearnings == null || !allLearnings.Any())
-        {
-            <div class="empty-icon">📚</div>
-            <h3>No Learning Entries Yet</h3>
-            <p>Your learning journey documentation will appear here as you add new entries.</p>
-            <a href="/add-learning" class="btn btn-primary">
-                <i class="icon-plus">➕</i>
-                Add First Learning Entry
-            </a>
-        }
-        else
-        {
-            <div class="empty-icon">🔍</div>
-            <h3>No Results Found</h3>
-            <p>Try adjusting your search terms or filters to find what you're looking for.</p>
-            <button @onclick="ClearAllFilters" class="btn btn-outline">
-                Clear All Filters
-            </button>
-        }
-    </div>
-}
-else
-{
-    <div class="projects-grid">
-        @foreach (var learning in filteredLearnings)
-        {
-            <div class="project-card-wrapper" @key="learning.Id">
-                <LearningCard Learning="learning" OnCategoryClick="FilterByCategory" />
-            </div>
-        }
-    </div>
-
-    <!-- Load More Button (if implementing pagination) -->
-    @if (hasMoreItems)
-    {
-        <div class="load-more-section">
-            <button @onclick="LoadMoreItems" class="btn btn-outline" disabled="@isLoadingMore">
-                @if (isLoadingMore)
-                {
-                    <div class="mini-spinner"></div>
-                    <span>Loading...</span>
-                }
-                else
-                {
-                    <span>Load More Entries</span>
-                    <i class="icon-arrow-down">⬇️</i>
-                }
-            </button>
-        </div>
-    }
-} *@
 
 <!-- Learning Stats (Optional) -->
 @if (allLearnings != null && allLearnings.Any())
